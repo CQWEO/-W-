@@ -1,7 +1,7 @@
 if game.CoreGui:FindFirstChild("FluxLib") or game.CoreGui:FindFirstChild("Message") then return end
 
 local Flux = loadstring(game:HttpGet("https://lolcat.boo/assets/flux-fixed"))()
-local Window = Flux:Window("YOU HUB  ", "Doors[MODIFIED]", Color3.new(0,0.8), Enum.KeyCode.RightControl)
+local Window = Flux:Window("YOU HUB  ", "Doors[MODIFIED]", Color3.new(7,9.9), Enum.KeyCode.RightControl)
 local Tab = Window:Tab("Main", "rbxassetid://6026568198")
 local Tab2 = Window:Tab("Visual", "rbxassetid://6031763426")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -216,7 +216,7 @@ local function ApplySettings(Object)
                                 end
                                 RoomName = " (" .. NewString .. ")"
                             end
-                            TXT = "Door " .. (Floor.Value == "Rooms" and "A-" or "") .. tonumber(Object.Parent.Name) + 1 .. RoomName
+                            TXT = "Cửa " .. (Floor.Value == "Rooms" and "A-" or "") .. tonumber(Object.Parent.Name) + 1 .. RoomName
                         end
                         if IsValid[1] == "Gold" then
                             TXT = Object:GetAttribute("GoldValue") .. " Gold"
@@ -238,8 +238,8 @@ local function ApplySettings(Object)
                         Object.BillboardGui:Destroy()
                     end
                     local Target = Object
-                    if IsValid[1] == "Door" and Object.Parent.Name ~= "49" and Object.Parent.Name ~= "50" then
-                        Target = Object:WaitForChild("Door")
+                    if IsValid[1] == "Cửa" and Object.Parent.Name ~= "49" and Object.Parent.Name ~= "50" then
+                        Target = Object:WaitForChild("Cửa")
                     end
                     if Bool then
                         local Highlight = Instance.new("Highlight",Target)
