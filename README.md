@@ -1,7 +1,7 @@
 if game.CoreGui:FindFirstChild("FluxLib") or game.CoreGui:FindFirstChild("Message") then return end
 
 local Flux = loadstring(game:HttpGet("https://lolcat.boo/assets/flux-fixed"))()
-local Window = Flux:Window("YOU HUB", "v2.6.5", Color3.new(7,9.9), Enum.KeyCode.RightControl)
+local Window = Flux:Window("YOU HUB", "v2.6.3", Color3.new(7,9.9), Enum.KeyCode.RightControl)
 local Tab = Window:Tab("Main", "rbxassetid://6026568198")
 local Tab2 = Window:Tab("Visual", "rbxassetid://6031763426")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -17,7 +17,7 @@ local AvatarIcon = Players:GetUserThumbnailAsync(LocalPlayer.UserId,Enum.Thumbna
 local MainUI = LocalPlayer.PlayerGui.MainUI
 local Main_Game = MainUI.Initiator.Main_Game
 local Modules = Main_Game.RemoteListener.Modules
-local SpeedBoost = 6
+local SpeedBoost = 4
 local ScreechSafeRooms = {}
 local PrimaryPart = Character.PrimaryPart
 local CurrentRooms = workspace.CurrentRooms
@@ -122,7 +122,7 @@ local function ReplacePainting(Painting,NewImage,NewTitle)
     Painting:WaitForChild("Canvas").SurfaceGui.ImageLabel.Image = NewImage
     Painting.Canvas.SurfaceGui.ImageLabel.BackgroundTransparency = 1
     Painting.Canvas.SurfaceGui.ImageLabel.ImageTransparency = 0
-    Painting.Canvas.SurfaceGui.ImageLabel.ImageColor3 = Color3.new(1,9,7)
+    Painting.Canvas.SurfaceGui.ImageLabel.ImageColor3 = Color3.new(1,1,1)
     local NewPrompt = Painting:WaitForChild("InteractPrompt"):Clone()
     Painting.InteractPrompt:Destroy()
     NewPrompt.Parent = Painting
@@ -176,7 +176,7 @@ local function ApplySettings(Object)
             if Object:FindFirstChild("RushNew") then
                 if not Object.RushNew:WaitForChild("PlaySound").Playing then return end
             end
-            local Color = ESP_Items[Object.Name] and Color3.new(1,9) or ESP_Entities[Object.Name] and Color3.new(1) or Color3.new(0,1,1)
+            local Color = ESP_Items[Object.Name] and Color3.new(1,1) or ESP_Entities[Object.Name] and Color3.new(1) or Color3.new(0,1,1)
             if Object.Name == "RushMoving" or Object.Name == "AmbushMoving" or Object.Name == "Eyes" or Object.Name == "A60" or Object.Name == "A120" then
                 for i = 1, 100 do
                     if Object:FindFirstChildOfClass("Part") then
@@ -193,7 +193,7 @@ local function ApplySettings(Object)
                 if IsValid then
                     if Bool then
                         local TXT = IsValid[1]
-                        if IsValid[1] == "Cửa" then
+                        if IsValid[1] == "Door" then
                             local RoomName
                             if Floor.Value == "Rooms" then
                                 RoomName = ""
@@ -216,7 +216,7 @@ local function ApplySettings(Object)
                                 end
                                 RoomName = " (" .. NewString .. ")"
                             end
-                            TXT = "Door " .. (Floor.Value == "Rooms" and "A-" or "") .. tonumber(Object.Parent.Name) + 1 .. RoomName
+                            TXT = "Cửa " .. (Floor.Value == "Rooms" and "A-" or "") .. tonumber(Object.Parent.Name) + 1 .. RoomName
                         end
                         if IsValid[1] == "Gold" then
                             TXT = Object:GetAttribute("GoldValue") .. " Gold"
@@ -238,8 +238,8 @@ local function ApplySettings(Object)
                         Object.BillboardGui:Destroy()
                     end
                     local Target = Object
-                    if IsValid[1] == "Door" and Object.Parent.Name ~= "49" and Object.Parent.Name ~= "50" then
-                        Target = Object:WaitForChild("Door")
+                    if IsValid[1] == "Cửa" and Object.Parent.Name ~= "49" and Object.Parent.Name ~= "50" then
+                        Target = Object:WaitForChild("Cửa")
                     end
                     if Bool then
                         local Highlight = Instance.new("Highlight",Target)
@@ -539,7 +539,7 @@ Tab:Toggle("Noclip","Lets you walk through any object. Does not work on Doors.",
     end
     PrimaryPart.CanCollide = not Noclip
 end)
-Tab:Slider("Speed Boost","Boosts your speed.",6,6,6,function(speed)
+Tab:Slider("Speed Boost","Boosts your speed.",0,6,0,function(speed)
     SpeedBoost = speed
     ApplySpeed(true)
 end)
@@ -632,6 +632,7 @@ Tab:Toggle("Waste Other Players Items","Repeatedly uses everyone else's items li
         end
     end
 end)
+if Floor.Value == "Rooms" then
     Tab2:Toggle("Disable A-90","Disables A-90 visual, sound, and damage.",false,function(Bool)
         DisableA90 = Bool
     end)
@@ -730,7 +731,7 @@ TextChatService.OnIncomingMessage = function(MessageData)
                                 end
                             end
                         end
-                    end)
+                    end)busyloop
                 end
             end
         end
