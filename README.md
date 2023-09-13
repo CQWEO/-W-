@@ -750,5 +750,4 @@ mt.__namecall = newcclosure(function(remote,...)
     return old_mt(remote,table.unpack(args))
 end)
 setreadonly(mt,true)
-game:GetService("RunService").RenderStepped:Connect(function()v54+=1 if ((tick() -v53)>=(37 -(13 + 23))) then local v271=0 -0 ;while true do if (0==v271) then v55=v54;v53=tick();v271=1 -0 ;end if (v271==(1 -0)) then v54=0;break;end end end v33:SetWatermark(("You Hub | %s FPS | %s MS"):format(math.floor(v55),math.floor(game:GetService("Stats").Network.ServerStatsItem["Data Ping"]:GetValue())));end);
 while wait() do    for i,v in pairs(workspace.CurrentRooms:GetDescendants()) do         if v.Name == "Screech" then             v:Destroy()         end     end end
