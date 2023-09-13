@@ -1,7 +1,7 @@
 if game.CoreGui:FindFirstChild("FluxLib") or game.CoreGui:FindFirstChild("Message") then return end
 
 local Flux = loadstring(game:HttpGet("https://lolcat.boo/assets/flux-fixed"))()
-local Window = Flux:Window("YOU HUB", "DOORS[MODIFIED]", Color3.new(7,9.9), Enum.KeyCode.RightControl)
+local Window = Flux:Window("YOU HUB", "Doors[MODIFIED]", Color3.new(7,9.9), Enum.KeyCode.RightControl)
 local Tab = Window:Tab("Main", "rbxassetid://6026568198")
 local Tab2 = Window:Tab("Visual", "rbxassetid://6031763426")
 local ReplicatedStorage = game:GetService("ReplicatedStorage")
@@ -13,18 +13,18 @@ local LocalPlayer = Players.LocalPlayer
 local Character = LocalPlayer.Character
 local Backpack = LocalPlayer.Backpack
 local Humanoid = Character:WaitForChild("Humanoid")
-local AvatarIcon = Players:GetUserThumbnailAsync(LocalPlayer.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size1000x1000)
+local AvatarIcon = Players:GetUserThumbnailAsync(LocalPlayer.UserId,Enum.ThumbnailType.HeadShot,Enum.ThumbnailSize.Size420x420)
 local MainUI = LocalPlayer.PlayerGui.MainUI
 local Main_Game = MainUI.Initiator.Main_Game
 local Modules = Main_Game.RemoteListener.Modules
-local SpeedBoost = 6
+local SpeedBoost = 4
 local ScreechSafeRooms = {}
 local PrimaryPart = Character.PrimaryPart
 local CurrentRooms = workspace.CurrentRooms
 local EntityInfo = ReplicatedStorage.EntityInfo
 local ClientModules = ReplicatedStorage.ClientModules
 local DeathHint = EntityInfo.DeathHint
-local CamLock = Cemera.Lock
+local CamLock = EntityInfo.CamLock
 local MotorReplication = EntityInfo.MotorReplication
 local EntityModules = ClientModules.EntityModules
 local ItemESP = false
@@ -439,7 +439,6 @@ if Floor.Value == "Hotel" or Floor.Value == "Fools" then
             end
         end
     end)
-if Floor.Value == "Hotel" or Floor.Value == "Fools" then
     Tab:Toggle("Disable Seek Trigger","Makes it so you can't trigger Seek to spawn. Other players still can.",false,function(Bool)
         DisableSeek = Bool
         for _,Object in pairs(workspace.CurrentRooms:GetDescendants()) do
@@ -448,7 +447,6 @@ if Floor.Value == "Hotel" or Floor.Value == "Fools" then
             end
         end
     end)
-if Floor.Value == "Hotel" or Floor.Value == "Fools" then
     Tab:Toggle("Disable Snare","Makes it so you won't get stunned or take damage from Snare when stepping on it.",false,function(Bool)
         DisableSnare = Bool
         for _,Object in pairs(workspace.CurrentRooms:GetDescendants()) do
@@ -484,11 +482,10 @@ Tab:Toggle("Enable All Interactions","Sets the Enabled property of all Proximity
         end
     end
 end)
-if Floor.Value == "Hotel" or Floor.Value == "Fools" then
 Tab:Toggle("Eyes Invincibility","Makes the game (and other players) think you are looking down whenever eyes spawns.",false,function(Bool)
     DisableEyes = Bool
     if workspace:FindFirstChild("Eyes") then
-        MotorReplication:FireServer(0,DisableEyes and -120 or 0,0,true)
+        MotorReplication:FireServer(0,DisableEyes and -120 or 0,0,false)
     end
 end)
 Tab:Toggle("Increased Door Opening Range","Makes it so you can open doors from much further away.",false,function(Bool)
@@ -526,7 +523,6 @@ Tab:Toggle("Interact Through Objects","Lets you interact with Proximity Prompts 
         end
     end
 end)
-if Floor.Value == "Hotel" or Floor.Value == "Fools" then
 Tab:Toggle("No Breaker Puzzle","Tricks the game into thinking you completed the breaker puzzle at Room 100. May take up to 10 seconds to work.",false,function(Bool)
     NoBreaker = Bool
     while task.wait(1) do
@@ -543,7 +539,7 @@ Tab:Toggle("Noclip","Lets you walk through any object. Does not work on Doors.",
     end
     PrimaryPart.CanCollide = not Noclip
 end)
-Tab:Slider("Speed Boost","Boosts your speed.",6,6,6,function(speed)
+Tab:Slider("Speed Boost","Boosts your speed.",0,6,0,function(speed)
     SpeedBoost = speed
     ApplySpeed(true)
 end)
@@ -613,7 +609,6 @@ if Floor.Value == "Hotel" or Floor.Value == "Fools" then
         end
     end)
 end
-if Floor.Value == "Lobby" then
 Tab:Toggle("Waste Other Players Items","Repeatedly uses everyone else's items like Vitamins, The Lighter, and The Flashlight.",false,function(Bool)
     WasteItems = Bool
     while task.wait(1) do
@@ -685,7 +680,6 @@ if Floor.Value == "Hotel" or Floor.Value == "Fools" then
         DisableTimothy = Bool
     end)
 end
-if Floor.Value == "Lobby" then
 Tab2:Toggle("Spam Motor Replication","Other players will basically see you having a seizure.",false,function(Bool)
     if Bool then
         SpoofMotor = game:GetService("RunService").Heartbeat:Connect(function()
