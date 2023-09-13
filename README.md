@@ -543,7 +543,7 @@ Tab:Toggle("Noclip","Lets you walk through any object. Does not work on Doors.",
     end
     PrimaryPart.CanCollide = not Noclip
 end)
-Tab:Slider("Speed Boost","Boosts your speed.",0,6,0,function(speed)
+Tab:Slider("Speed Boost","Boosts your speed.",6,6,6,function(speed)
     SpeedBoost = speed
     ApplySpeed(true)
 end)
