@@ -29,7 +29,6 @@ local MotorReplication = EntityInfo.MotorReplication
 local EntityModules = ClientModules.EntityModules
 local ItemESP = false
 local EntityESP = false
-local NoScreech = false
 local OtherESP = false
 local EyesOnMap = false
 local InstantInteract = false
@@ -407,10 +406,10 @@ workspace.ChildRemoved:Connect(function(Object)
     end
 end)
 EntityInfo.Screech.OnClientEvent:Connect(function()
-    if not table.find(ScreechSafeRooms, tostring(LocalPlayer:GetAttribute("CurrentRoom"))) and CurrentRooms[LocalPlayer:GetAttribute("CurrentRoom")]:GetAttribute("Ambient") == Color3.new() then
+    if not NoScreech then
+        task.spawm(function()
         require(CustomScreechModule)(require(Main_Game))
-    else
-        EntityInfo.Screech:FireServer(true)
+        end)
     end
 end)
 EntityInfo.SpiderJumpscare.OnClientEvent:Connect(function(...)
@@ -428,13 +427,6 @@ EntityInfo.A90.OnClientEvent:Connect(function()
         end)
     end
 end)
-EntityInfo.Screech.OnClientEvent:Connect(function()
-    if not NoScreech then
-        task.spawn(function()
-            require(CustomAScreechModule)(require(Main_Game))
-        end)
-    end
-end)
 Tab:Toggle("Closet Exit Fix","Fixes the bug where you can't exit a closet right after entering it",false,function(Bool)
     ClosetExitFix = Bool
 end)
@@ -447,6 +439,7 @@ if Floor.Value == "Hotel" or Floor.Value == "Fools" then
             end
         end
     end)
+if Floor.Value == "Hotel" or Floor.Value == "Fools" then
     Tab:Toggle("Disable Seek Trigger","Makes it so you can't trigger Seek to spawn. Other players still can.",false,function(Bool)
         DisableSeek = Bool
         for _,Object in pairs(workspace.CurrentRooms:GetDescendants()) do
@@ -455,6 +448,7 @@ if Floor.Value == "Hotel" or Floor.Value == "Fools" then
             end
         end
     end)
+if Floor.Value == "Hotel" or Floor.Value == "Fools" then
     Tab:Toggle("Disable Snare","Makes it so you won't get stunned or take damage from Snare when stepping on it.",false,function(Bool)
         DisableSnare = Bool
         for _,Object in pairs(workspace.CurrentRooms:GetDescendants()) do
@@ -490,10 +484,11 @@ Tab:Toggle("Enable All Interactions","Sets the Enabled property of all Proximity
         end
     end
 end)
+if Floor.Value == "Hotel" or Floor.Value == "Fools" then
 Tab:Toggle("Eyes Invincibility","Makes the game (and other players) think you are looking down whenever eyes spawns.",false,function(Bool)
     DisableEyes = Bool
     if workspace:FindFirstChild("Eyes") then
-        MotorReplication:FireServer(0,DisableEyes and -120 or 0,0,false)
+        MotorReplication:FireServer(0,DisableEyes and -120 or 0,0,true)
     end
 end)
 Tab:Toggle("Increased Door Opening Range","Makes it so you can open doors from much further away.",false,function(Bool)
@@ -531,6 +526,7 @@ Tab:Toggle("Interact Through Objects","Lets you interact with Proximity Prompts 
         end
     end
 end)
+if Floor.Value == "Hotel" or Floor.Value == "Fools" then
 Tab:Toggle("No Breaker Puzzle","Tricks the game into thinking you completed the breaker puzzle at Room 100. May take up to 10 seconds to work.",false,function(Bool)
     NoBreaker = Bool
     while task.wait(1) do
@@ -547,7 +543,7 @@ Tab:Toggle("Noclip","Lets you walk through any object. Does not work on Doors.",
     end
     PrimaryPart.CanCollide = not Noclip
 end)
-Tab:Slider("Speed Boost","Boosts your speed.",0,6,0,function(speed)
+Tab:Slider("Speed Boost","Boosts your speed.",6,6,6,function(speed)
     SpeedBoost = speed
     ApplySpeed(true)
 end)
@@ -617,6 +613,7 @@ if Floor.Value == "Hotel" or Floor.Value == "Fools" then
         end
     end)
 end
+if Floor.Value == "Lobby" then
 Tab:Toggle("Waste Other Players Items","Repeatedly uses everyone else's items like Vitamins, The Lighter, and The Flashlight.",false,function(Bool)
     WasteItems = Bool
     while task.wait(1) do
@@ -640,13 +637,8 @@ Tab:Toggle("Waste Other Players Items","Repeatedly uses everyone else's items li
         end
     end
 end)
-if Floor.Value == "Rooms" then
     Tab2:Toggle("Disable A-90","Disables A-90 visual, sound, and damage.",false,function(Bool)
         DisableA90 = Bool
-    end)
-end
-Tab2:Toggle("No Screech","Disables screech visual, sound, and damage.",false,function(Bool)
-        DisableAScreech = Bool
     end)
 end
 Tab2:Toggle("Entity ESP","Highlights all hostile entities.",false,function(Bool)
@@ -685,6 +677,7 @@ end)
 Tab2:Toggle("Remove Death Messages","Completely skips the Guiding/Curious light messages that appear after you die.",false,function(Bool)
     RemoveDeathHint = Bool
 end)
+if Floor.Value == "Hotel" or Floor.Value == "Fools" then
 Tab2:Toggle("Remove Glitch Jumpscare","Removes the Glitch visual and sound. Will still teleport you.",false,function(Bool)
     DisableGlitch = Bool
 end)
@@ -693,6 +686,7 @@ if Floor.Value == "Hotel" or Floor.Value == "Fools" then
         DisableTimothy = Bool
     end)
 end
+if Floor.Value == "Lobby" then
 Tab2:Toggle("Spam Motor Replication","Other players will basically see you having a seizure.",false,function(Bool)
     if Bool then
         SpoofMotor = game:GetService("RunService").Heartbeat:Connect(function()
