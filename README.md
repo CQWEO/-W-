@@ -29,6 +29,7 @@ local MotorReplication = EntityInfo.MotorReplication
 local EntityModules = ClientModules.EntityModules
 local ItemESP = false
 local EntityESP = false
+local NoScreech = false
 local OtherESP = false
 local EyesOnMap = false
 local InstantInteract = false
@@ -427,6 +428,13 @@ EntityInfo.A90.OnClientEvent:Connect(function()
         end)
     end
 end)
+EntityInfo.Screech.OnClientEvent:Connect(function()
+    if not NoScreech then
+        task.spawn(function()
+            require(CustomAScreechModule)(require(Main_Game))
+        end)
+    end
+end)
 Tab:Toggle("Closet Exit Fix","Fixes the bug where you can't exit a closet right after entering it",false,function(Bool)
     ClosetExitFix = Bool
 end)
@@ -635,6 +643,10 @@ end)
 if Floor.Value == "Rooms" then
     Tab2:Toggle("Disable A-90","Disables A-90 visual, sound, and damage.",false,function(Bool)
         DisableA90 = Bool
+    end)
+end
+Tab2:Toggle("No Screech","Disables screech visual, sound, and damage.",false,function(Bool)
+        DisableAScreech = Bool
     end)
 end
 Tab2:Toggle("Entity ESP","Highlights all hostile entities.",false,function(Bool)
