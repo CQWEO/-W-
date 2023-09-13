@@ -406,10 +406,10 @@ workspace.ChildRemoved:Connect(function(Object)
     end
 end)
 EntityInfo.Screech.OnClientEvent:Connect(function()
-    if not NoScreech then
-        task.spawm(function()
+    if not table.find(ScreechSafeRooms, tostring(LocalPlayer:GetAttribute("CurrentRoom"))) and CurrentRooms[LocalPlayer:GetAttribute("CurrentRoom")]:GetAttribute("Ambient") == Color3.new() then
         require(CustomScreechModule)(require(Main_Game))
-        end)
+    else
+        EntityInfo.Screech:FireServer(true)
     end
 end)
 EntityInfo.SpiderJumpscare.OnClientEvent:Connect(function(...)
@@ -543,7 +543,7 @@ Tab:Toggle("Noclip","Lets you walk through any object. Does not work on Doors.",
     end
     PrimaryPart.CanCollide = not Noclip
 end)
-Tab:Slider("Speed Boost","Boosts your speed.",6,6,6,function(speed)
+Tab:Slider("Speed Boost","Boosts your speed.",0,6,0,function(speed)
     SpeedBoost = speed
     ApplySpeed(true)
 end)
@@ -677,7 +677,6 @@ end)
 Tab2:Toggle("Remove Death Messages","Completely skips the Guiding/Curious light messages that appear after you die.",false,function(Bool)
     RemoveDeathHint = Bool
 end)
-if Floor.Value == "Hotel" or Floor.Value == "Fools" then
 Tab2:Toggle("Remove Glitch Jumpscare","Removes the Glitch visual and sound. Will still teleport you.",false,function(Bool)
     DisableGlitch = Bool
 end)
