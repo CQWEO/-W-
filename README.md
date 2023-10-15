@@ -35,7 +35,7 @@ function esp(what,color,core,name)
             box.ZIndex = 1
             box.AdornCullingMode = Enum.AdornCullingMode.Never
             box.Color3 = color
-            box.Transparency = 0.7
+            box.Transparency = 1
             box.Adornee = v
             box.Parent = game.CoreGui
             
@@ -180,7 +180,7 @@ window_player.toggle("instant use",false,function(val)
     holdconnect:Disconnect()
 end)
 
-local walkspeedslider = window_player.slider("walkspeed",25,25,25,25,function(val)
+local walkspeedslider = window_player.slider("walkspeed",21,21,21,21,function(val)
     hum.WalkSpeed = val
     flags.speed = val
 end)
@@ -203,7 +203,7 @@ window_esp.toggle("DOORS ESP",false,function(val)
             local door = room:WaitForChild("Door"):WaitForChild("Door")
             
             task.wait(0.1)
-            local h = esp(door,Color3.fromRGB(255,240,0),door,"Door")
+            local h = esp(door,Color3.new(1,1,1),door,"Door")
             table.insert(esptable.doors,h)
             
             door:WaitForChild("Open").Played:Connect(function()
