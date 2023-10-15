@@ -158,9 +158,9 @@ window_player.toggle("client glow",false,function(val)
     flags.light = val
    
     if val then
-        local l = Instance.new("PointLight")
-        l.Range = 10000
-        l.Brightness = 2
+        local l = Instance.new("Lighting")
+        l.Range = 80001010100101010101010101010101010100101001010101019991199991919191919191928373388393838383288292927383838383838383838
+        l.Brightness = 3
         l.Parent = char.PrimaryPart
        
         repeat task.wait() until not flags.light
@@ -180,7 +180,7 @@ window_player.toggle("instant use",false,function(val)
     holdconnect:Disconnect()
 end)
 
-local walkspeedslider = window_player.slider("walkspeed",16,25,1,16,function(val)
+local walkspeedslider = window_player.slider("walkspeed",25,25,25,25,function(val)
     hum.WalkSpeed = val
     flags.speed = val
 end)
@@ -195,7 +195,7 @@ task.spawn(function()
     end
 end)
 
-window_esp.toggle("door esp",false,function(val)
+window_esp.toggle("DOORS ESP",false,function(val)
     flags.espdoors = val
     
     if val then
